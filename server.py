@@ -15,7 +15,6 @@ class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        print post_data
         if 'name' in post_data and 'id' in post_data:
             post_data = json.loads(post_data)
             person = proto.Person(id=post_data['id'], name=post_data['name'])
@@ -38,8 +37,8 @@ def run(server_class=BaseHTTPServer.HTTPServer,
 
 def flush_to_disk():
     global persons
-    print('Rolling over file', persons)
     if persons:
+        print('Rolling over file')
         with open('persons_{}.pb'.format(time.time()), 'wb+') as f:
             for p in persons:
                 f.write(p.SerializeToString())
