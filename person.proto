@@ -1,0 +1,7 @@
+//polyline.proto
+syntax = "proto2";
+
+message Person {
+  required int32 id = 1;
+  optional string name = 2;
+}
